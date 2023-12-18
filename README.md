@@ -25,8 +25,5 @@ This a Python based project, in which I have made a program that would read the 
 ```
 
 ## Guide
-- If you want to Run a quick test you can run: 20_Q TEST_UI_Ver.py
 
-- And for the whole QB: Whole_QB_UI.py  
-
-- Also if you want to give test based on chapter you can run specfic chapters.py file
+- If you want to give test based on chapter you can run specfic chpX.py file
