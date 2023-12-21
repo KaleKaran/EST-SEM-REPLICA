@@ -69,14 +69,28 @@ def check_answer(option_index):
         root.destroy()
 
 # Function to display the current question and options
+# Function to display the current question and options
 def show_question(q_num):
     global answered  # Update the global 'answered' variable
     answered = False  # Reset the answer status
 
+    # Display question number and total number of questions
+    question_counter_label.config(text=f"Question {q_num + 1}/{len(questions)}")
+
+    # Shuffle the options and keep track of the index of the correct option
+    correct_option_index = questions[q_num]["correct_option"]
+    shuffled_options = random.sample(questions[q_num]["options"], len(questions[q_num]["options"]))
+    correct_option_after_shuffle = shuffled_options.index(questions[q_num]["options"][correct_option_index])
+
     question_label.config(text=questions[q_num]["question"])
 
     for i, option in enumerate(option_buttons):
-        option.config(text=questions[q_num]["options"][i], bg="SystemButtonFace")
+        option.config(text=shuffled_options[i], bg="SystemButtonFace")
+        if i == correct_option_after_shuffle:
+            correct_option_index_after_shuffle = i
+
+    # Update the correct option index after shuffling
+    questions[q_num]["correct_option"] = correct_option_index_after_shuffle
 
 # Create the main window with a fixed 1:1 aspect ratio and a larger size
 root = tk.Tk()
@@ -89,6 +103,10 @@ root.geometry(f"{window_size}x{window_size}")
 # Create UI elements with space between the options
 question_label = tk.Label(root, text="", padx=20, pady=10)
 question_label.pack()
+
+# Create UI element to display the question counter
+question_counter_label = tk.Label(root, text="", pady=10)
+question_counter_label.pack()
 
 option_buttons = []
 for i in range(5):
